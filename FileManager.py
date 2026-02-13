@@ -1,10 +1,22 @@
 import tkinter
 from tkinter import filedialog
+from tkinter import messagebox
 
 class FileManager:
     def __init__(self, text_widget):
         self.text_widget = text_widget
         self.current_file_path = None
+
+    def create_file(self, event=None):
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+
+        if file_path:
+            try:
+                with open(file_path, 'w') as f:
+                    f.write("")
+                messagebox.showinfo("Success",f"Created file: {file_path}")
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not create file: {file_path} {e}")
 
 
     def open_file(self, event=None):
@@ -18,7 +30,7 @@ class FileManager:
                     self.text_widget.delete('1.0',tkinter.END)
                     self.text_widget.insert(tkinter.END, content)
             except Exception as e:
-                    print(f"Error reading file: {e}")
+                    messagebox.showerror("Error", f"Couldn't read file: {e}")
 
     def save_file(self, event = None):
         if not self.current_file_path:
@@ -30,10 +42,9 @@ class FileManager:
                 content = self.text_widget.get("1.0", "end-1c")
                 with open(self.current_file_path, 'w') as f:
                     f.write(content)
-                print(f"Saved file: {self.current_file_path}")
+                messagebox.showinfo("Success",f"Saved file: {self.current_file_path}")
             except Exception as e:
-                print(f"Error Saved file: {self.current_file_path} {e}")
-
+                messagebox.showerror("Error", f"Could save file: {self.current_file_path} {e}")
 
     def clean_area(self, event=None):
         self.text_widget.delete('1.0', tkinter.END)

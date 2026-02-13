@@ -35,7 +35,13 @@ text_widget = tk.Text(content_frame)
 file_manager = FileManager(text_widget)
 text_widget.pack(expand=True, fill='both')
 
+create_btn = tk.Button(sidebar, bg="red", fg="white")
+create_btn['text'] = "Create file"
+create_btn.bind(RIGHT_CLICK, file_manager.create_file)
+create_btn.pack(fill=tk.X, padx=5, pady=5)
+
 btn = tk.Button(sidebar, bg="blue", fg="black")
+btn = tk.Button(root, bg="blue", fg="black")
 btn['text'] = "Open file"
 btn.bind(RIGHT_CLICK, file_manager.open_file)
 btn.pack(fill=tk.X, padx=5, pady=5)
