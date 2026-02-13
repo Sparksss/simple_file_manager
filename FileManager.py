@@ -3,12 +3,17 @@ from tkinter import filedialog
 from tkinter import messagebox
 
 class FileManager:
+
+    TEXT_FILE_TYPES = "Text files"
+    TEXT_EXTENTION = ".txt"
+
+
     def __init__(self, text_widget):
         self.text_widget = text_widget
         self.current_file_path = None
 
     def create_file(self, event=None):
-        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+        file_path = filedialog.asksaveasfilename(defaultextension=self.TEXT_EXTENTION, filetypes=[(self.TEXT_FILE_TYPES, "*.txt")])
 
         if file_path:
             try:
@@ -34,8 +39,8 @@ class FileManager:
 
     def save_file(self, event = None):
         if not self.current_file_path:
-            self.current_file_path = filedialog.asksaveasfilename(defaultextension=".txt",
-                                                             filetypes=[("Text files", "*.txt")])
+            self.current_file_path = filedialog.asksaveasfilename(defaultextension=self.TEXT_EXTENTION,
+                                                             filetypes=[(self.TEXT_FILE_TYPES, "*.txt")])
 
         if self.current_file_path:
             try:
